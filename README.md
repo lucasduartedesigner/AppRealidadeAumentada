@@ -1,2 +1,2 @@
-# AppRealidadeAumentada
+# Aplicativo Realidade Aumentada
 PROJETO DE DESENVOLVIMENTO MOBILE REALIDADE AUMENTADA
