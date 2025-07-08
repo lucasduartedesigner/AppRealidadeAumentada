@@ -82,6 +82,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * This is a simple example that shows how to create an augmented reality (AR) application using the
@@ -92,8 +93,8 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
 
   private static final String TAG = HelloArActivity.class.getSimpleName();
 
-  private static final String SEARCHING_PLANE_MESSAGE = "Searching for surfaces...";
-  private static final String WAITING_FOR_TAP_MESSAGE = "Tap on a surface to place an object.";
+  private static final String SEARCHING_PLANE_MESSAGE = "Analisando o ambiente...";
+  private static final String WAITING_FOR_TAP_MESSAGE = "Toque em uma superfície para posicionar o objeto...";
 
   // See the definition of updateSphericalHarmonicsCoefficients for an explanation of these
   // constants.
@@ -195,17 +196,11 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
 
     depthSettings.onCreate(this);
     instantPlacementSettings.onCreate(this);
-    ImageButton settingsButton = findViewById(R.id.settings_button);
-    settingsButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            PopupMenu popup = new PopupMenu(HelloArActivity.this, v);
-            popup.setOnMenuItemClickListener(HelloArActivity.this::settingsMenuClick);
-            popup.inflate(R.menu.settings_menu);
-            popup.show();
-          }
-        });
+    Toolbar toolbar = findViewById(R.id.topAppBar);
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setTitle("Mapa Institucional Unifeso");
+
+
   }
 
   /** Menu button to launch feature specific settings. */
@@ -600,13 +595,13 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
       // during calls to session.update() as ARCore refines its estimate of the world.
       anchor.getPose().toMatrix(modelMatrix, 0);
 
-      Matrix.scaleM(modelMatrix, 0, 0.05f, 0.05f, 0.05f);
+      Matrix.scaleM(modelMatrix, 0, 0.04f, 0.04f, 0.04f);
 
-      Matrix.rotateM(modelMatrix, 0, 90.0f, -220.0f, 180.0f, 120.0f);
+      Matrix.rotateM(modelMatrix, 0, 90.0f, 0.0f, 1.0f, 0.0f);
 
-      //Matrix.rotateM(modelMatrix, 0, 0.0f, 90.0f, 90.0f, 0.0f);
+      Matrix.rotateM(modelMatrix, 0, -90.0f, 1.0f, 0.0f, 0.0f);
 
-      //Matrix.rotateM(modelMatrix, 0, -35.0f, 0.0f, 1.0f, 1.0f);
+      //Matrix.rotateM(modelMatrix, 0, -90.0f, 0.0f, 0.0f, 1.0f);
 
       // Calculate model/view/projection matrices
       Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0);
